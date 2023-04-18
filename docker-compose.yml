@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  ddd4.app:
+    image: ${DOCKER_REGISTRY-}ddd4app
+    build:
+      context: .
+      dockerfile: DDD4.App/Dockerfile
