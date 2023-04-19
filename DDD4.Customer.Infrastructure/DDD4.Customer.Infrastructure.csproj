@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EventStore.Client.Grpc.Streams" Version="22.0.0" />
+	</ItemGroup>
 
 </Project>
