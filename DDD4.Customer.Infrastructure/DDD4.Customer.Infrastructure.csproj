@@ -10,4 +10,9 @@
 		<PackageReference Include="EventStore.Client.Grpc.Streams" Version="22.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\DDD4.Customer.Application\DDD4.Customer.Application.csproj" />
+	  <ProjectReference Include="..\DDD4.Customer.Domain\DDD4.Customer.Domain.csproj" />
+	</ItemGroup>
+
 </Project>
