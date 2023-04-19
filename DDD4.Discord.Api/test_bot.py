@@ -1,4 +1,7 @@
+import os
+
 import discord
+import json
 from tabulate import tabulate
 
 dict = {'🔼':1,'🔽':-1,'⏫':2,'⏬':-2}
@@ -35,7 +38,14 @@ async def send_message(message, user_message, is_private):
         print(e)
 
 def run_discord_bot():
-    TOKEN = 'INSERT TOKEN HERE'
+
+    s = open('app/secret.json')
+    data = json.load(s)
+    TOKEN = data['bot_token']
+
+    print(TOKEN)
+
+    s.close()
 
     intents = discord.Intents.default()
     intents.message_content = True
@@ -81,6 +91,5 @@ def run_discord_bot():
         else:
             current_standing[user_name] += change
 
-
-
     client.run(TOKEN)
+

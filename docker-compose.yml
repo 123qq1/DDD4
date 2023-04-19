@@ -12,4 +12,5 @@ services:
     tty: true
     container_name: DDD4.Discord.Api
     build:
+      context: .
       dockerfile: DDD4.Discord.Api/Dockerfile
