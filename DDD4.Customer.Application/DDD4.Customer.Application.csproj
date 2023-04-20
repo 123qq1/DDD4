@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Behavior\" />
-    <Folder Include="CQRS\Queries\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
 

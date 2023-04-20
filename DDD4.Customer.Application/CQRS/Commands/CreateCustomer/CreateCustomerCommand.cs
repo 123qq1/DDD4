@@ -4,13 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using DDD4.Customer.Domain.Entities;
 using MediatR;
 
 namespace DDD4.Customer.Application.CQRS.Commands.CreateCustomer
 {
-    public sealed record CreateCustomerCommand(
-        Guid CustomerId,
-        string CustomerName,
-        string DiscordName,
-        string AccountName) : IRequest;
+    public class CreateCustomerCommand : IRequest
+    {
+        public Guid CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string DiscordName { get; set; }
+        public string AccountName { get; set; }
+    }
 }

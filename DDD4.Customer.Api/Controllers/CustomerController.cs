@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using DDD4.Customer.Application.CQRS.Commands;
 using DDD4.Customer.Application.Repositories;
+using DDD4.Customer.Application.CQRS.Commands.CreateCustomer;
+using MediatR;
 
 namespace DDD4.Customer.Api.Controllers
 {
@@ -9,31 +11,17 @@ namespace DDD4.Customer.Api.Controllers
     [Route("/api/Customer")]
     public class CustomerController : ControllerBase
     {
-        //private readonly ICustomerRepository _customerRepository;
-        private readonly ICustomerCreateCommand _createCommand;
-
-        public CustomerController(/*ICustomerRepository customerRepository, */ ICustomerCreateCommand createCommand)
+        private readonly IMediator _mediator;
+        public CustomerController(IMediator mediator)
         {
-            //_customerRepository = customerRepository;
-            _createCommand = createCommand;
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> Create(CustomerCreateRequestDto dto)
+        public async Task<IActionResult> Create(CreateCustomerCommand createCustomerCommand)
         {
-            //var customer = await _customerRepository.LoadAsync(dto.CustomerId);
-
-            //customer.Create(
-            //    dto.CustomerId,
-            //    dto.CustomerName,
-            //    dto.DiscordName,
-            //    dto.AccountName
-            //    );
-
-            //await _customerRepository.SaveAsync(customer);
-
-            await _createCommand.Create(dto);
+            await _mediator.Send(createCustomerCommand);
 
             return Ok(); 
         }

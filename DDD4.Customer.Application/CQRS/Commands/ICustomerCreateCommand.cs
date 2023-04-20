@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DDD4.Customer.Application.CQRS.Commands.CreateCustomer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace DDD4.Customer.Application.CQRS.Commands
 {
     public interface ICustomerCreateCommand
     {
-        Task Create(CustomerCreateRequestDto customerCreateRequestDto);
+        Task Create(CreateCustomerCommand createCustomerCommand);
     }
 }
