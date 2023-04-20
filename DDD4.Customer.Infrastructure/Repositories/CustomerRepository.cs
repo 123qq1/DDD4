@@ -6,10 +6,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using EventStore.Client;
 using DDD4.Customer.Domain.Entities;
+using DDD4.Customer.Application.Repositories;
 
 namespace DDD4.Customer.Infrastructure.Repositories
 {
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly EventStoreClient _eventStoreClient;
 
@@ -18,7 +19,7 @@ namespace DDD4.Customer.Infrastructure.Repositories
             _eventStoreClient = eventStoreClient;
         }
 
-        public async Task SaveAsync(Domain.Entities.Customer customer)
+        async Task ICustomerRepository.SaveAsync(Domain.Entities.Customer customer)
         {
             var events = customer.GetChanges()
                 .Select(@event => new EventData(
@@ -36,7 +37,7 @@ namespace DDD4.Customer.Infrastructure.Repositories
             await _eventStoreClient.AppendToStreamAsync(streamName, StreamState.Any, events);
         }
 
-        public async Task<Domain.Entities.Customer> LoadAsync(Guid customerId)
+        async Task<Domain.Entities.Customer> ICustomerRepository.LoadAsync(Guid customerId)
         {
             if(customerId == Guid.Empty) throw new ArgumentException("Value cannot be null or whitespace.", nameof(customerId));
 

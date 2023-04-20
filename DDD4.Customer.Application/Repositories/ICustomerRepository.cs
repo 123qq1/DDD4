@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DDD4.Customer.Domain.Entities;
 
-namespace DDD4.Customer.Domain.Repositories
+namespace DDD4.Customer.Application.Repositories
 {
     public interface ICustomerRepository
     {
-        void Add(Entities.Customer customer);
+        Task SaveAsync(Domain.Entities.Customer customer);
+        Task<Domain.Entities.Customer> LoadAsync(Guid customerId);
     }
 }

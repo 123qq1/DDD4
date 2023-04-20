@@ -8,6 +8,6 @@ namespace DDD4.Customer.Application.CQRS.Commands
 {
     public interface ICustomerCreateCommand
     {
-        void Create(CustomerCreateRequestDto customerCreateRequestDto);
+        Task Create(CustomerCreateRequestDto customerCreateRequestDto);
     }
 }

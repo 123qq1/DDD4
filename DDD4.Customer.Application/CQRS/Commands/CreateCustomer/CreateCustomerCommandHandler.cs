@@ -1,6 +1,5 @@
-﻿using DDD4.Customer.Domain.Repositories;
-using DDD4.Customer.Domain.Entities;
-using MediatR;
+﻿using MediatR;
+using DDD4.Customer.Application.Repositories;
 
 namespace DDD4.Customer.Application.CQRS.Commands.CreateCustomer
 {
@@ -21,14 +20,14 @@ namespace DDD4.Customer.Application.CQRS.Commands.CreateCustomer
             var accountNameResult = AccountName.Create(request.AccountName);
             var discordNameResult = DiscordName.Create(request.DiscordName);
 
-            var customer = new Domain.Entities.Customer(
+            var customer = new Domain.Entities.Customer();
+            customer.Create(
                 customerIdResult.Value,
                 customerNameResult.Value,
                 accountNameResult.Value,
-                discordNameResult.Value
-                );
+                discordNameResult.Value);
 
-            _customerRepository.Add(customer);
+            await _customerRepository.SaveAsync(customer);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);  
 
