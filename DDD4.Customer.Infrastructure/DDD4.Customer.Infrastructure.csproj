@@ -6,8 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EventStore.Client.Grpc.Streams" Version="22.0.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.19.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DDD4.Customer.Application\DDD4.Customer.Application.csproj" />
+	  <ProjectReference Include="..\DDD4.Customer.Domain\DDD4.Customer.Domain.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -8,9 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Behavior\" />
-    <Folder Include="CQRS\Commands\" />
-    <Folder Include="CQRS\Queries\" />
     <Folder Include="Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DDD4.Customer.Domain\DDD4.Customer.Domain.csproj" />
   </ItemGroup>
 
 </Project>
