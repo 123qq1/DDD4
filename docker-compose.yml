@@ -6,3 +6,11 @@ services:
     build:
       context: .
       dockerfile: DDD4.App/Dockerfile
+  ddd4.discord.api:
+    image: ${DOCKER_REGISTRY-}ddd4discordapi
+    stdin_open: true
+    tty: true
+    container_name: DDD4.Discord.Api
+    build:
+      context: .
+      dockerfile: DDD4.Discord.Api/Dockerfile
