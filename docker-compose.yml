@@ -14,3 +14,10 @@ services:
     build:
       context: .
       dockerfile: DDD4.Discord.Api/Dockerfile
+  rabbitmq:
+    container_name: DDD4.RabbitMQ
+    hostname: rabbit
+    image: masstransit/rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
