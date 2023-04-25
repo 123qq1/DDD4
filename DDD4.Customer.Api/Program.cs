@@ -1,6 +1,9 @@
+using DDD4.Customer.Api.MongoDbConfig;
+
 var builder = WebApplication.CreateBuilder(args);
 
-var startup = new StartupBase(builder.Configuration);
+builder.Services.Configure<CustomersMongoDbSettings>(
+    builder.Configuration.GetSection("CustomerDocuments"));
 
 var app = builder.Build();
 

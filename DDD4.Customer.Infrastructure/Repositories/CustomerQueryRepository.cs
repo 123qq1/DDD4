@@ -5,13 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
-//using MongoDB.Driver;
+using MongoDB.Driver;
+using DDD4.Customer.Domain.Entities;
+using Microsoft.Extensions.Options;
 
 namespace DDD4.Customer.Infrastructure.Repositories
 {
     public class CustomerQueryRepository : ICustomerQueryRepository
     {
         // mongo db 
+        private readonly IMongoCollection<Domain.Entities.Customer> mongoCollection;
+
+        public CustomerQueryRepository(IOptions<CustomersMongoDbSettings> _customersMongoDbSettings)
+        {
+            var mongoClient = new MongoClient(_customersMongoDbSettings.Value.ConnectionString);
+            var mongoDatabase = mongoClient.GetDatabase(_customersMongoDbSettings.Value.DatabaseName);
+
+            _customersMongoDbSettings = mongoDatabase.GetCollection<Domain.Entities.Customer>(_customersMongoDbSettings.Value.CustomersCollectionName);
+        }
+
 
         // Insert event into mongoDb
         async Task ICustomerQueryRepository.Add(Domain.Entities.Customer customer)

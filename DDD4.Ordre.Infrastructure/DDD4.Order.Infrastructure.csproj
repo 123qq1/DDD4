@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\DDD4.Ordre.Application\DDD4.Order.Application.csproj" />
+    <ProjectReference Include="..\DDD4.Ordre.Domain\DDD4.Order.Domain.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EventStore.Client.Grpc.Streams" Version="22.0.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.19.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+	</ItemGroup>
 
 </Project>
