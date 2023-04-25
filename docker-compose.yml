@@ -6,6 +6,16 @@ services:
     build:
       context: .
       dockerfile: DDD4.App/Dockerfile
+  ddd4.customer.api:
+    image: ${DOCKER_REGISTRY-}ddd4customerapi
+    build:
+      context: .
+      dockerfile: DDD4.Customer.Api/Dockerfile
+  ddd4.saga.api:
+    image: ${DOCKER_REGISTRY-}ddd4sagaapi
+    build:
+      context: .
+      dockerfile: DDD4.Saga.Api/Dockerfile
   ddd4.discord.api:
     image: ${DOCKER_REGISTRY-}ddd4discordapi
     stdin_open: true

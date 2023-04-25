@@ -15,7 +15,7 @@ namespace DDD4.Saga.Components.StateMachines
 
             InstanceState(x => x.CurrentState);
 
-            Initially(
+            Initially(  
                     When(CustomerRecived)
                         .PublishAsync(context => context.Init<LinkCustomer>(
                             new
@@ -34,5 +34,20 @@ namespace DDD4.Saga.Components.StateMachines
         public State Finished { get; set; }
 
         public Event<CustomerRecived> CustomerRecived { get; set; }
+    }
+
+    public class CustomerStateMachineDefinition :
+        SagaDefinition<CustomerState>
+    {
+        public CustomerStateMachineDefinition()
+        {
+            ConcurrentMessageLimit = 8;
+        }
+
+        protected override void ConfigureSaga(IReceiveEndpointConfigurator endpointConfigurator, ISagaConfigurator<CustomerState> sagaConfigurator)
+        {
+            sagaConfigurator.UseMessageRetry(r => r.Immediate(5));
+            sagaConfigurator.UseInMemoryOutbox();
+        }
     }
 }

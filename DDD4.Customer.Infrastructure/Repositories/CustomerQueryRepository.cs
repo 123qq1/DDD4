@@ -16,10 +16,10 @@ namespace DDD4.Customer.Infrastructure.Repositories
         {
 
             //MongoClient mongoClient = new MongoClient("connstring");
-
+            /*
             var db = mongoClient.GetDatabase("CustomersDocuments");
             var collection = db.GetCollection<BsonDocument>();
-
+            
             var documentCustomer = new BsonDocument
             {
                 { "Id", customer.Id },
@@ -29,6 +29,7 @@ namespace DDD4.Customer.Infrastructure.Repositories
             };
 
             await collection.InsertOneAsync(documentCustomer);
+            */
         }
     }
 }

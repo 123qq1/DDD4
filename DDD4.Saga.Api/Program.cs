@@ -1,3 +1,4 @@
+using DDD4.Saga.Components.StateMachines;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,10 @@ builder.Services.AddMassTransit(cfg =>
 
         y.ConfigureEndpoints(x);
     });
+
+    cfg.AddSagasFromNamespaceContaining<CustomerStateMachine>();
+    cfg.AddSagaStateMachinesFromNamespaceContaining<CustomerStateMachine>();
+
 });
 
 //Add Database for saga persistence!

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,6 +12,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MassTransit.Analyzers" Version="8.0.13">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.0.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DDD4.Contracts\DDD4.Contracts.csproj" />
 	  <ProjectReference Include="..\DDD4.Customer.Application\DDD4.Customer.Application.csproj" />
 	  <ProjectReference Include="..\DDD4.Customer.Domain\DDD4.Customer.Domain.csproj" />
 	</ItemGroup>

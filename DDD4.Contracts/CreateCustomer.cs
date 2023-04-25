@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DDD4.Contracts
 {
-    public interface CustomerRecived
+    public interface CreateCustomer
     {
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
