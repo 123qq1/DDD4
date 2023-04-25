@@ -12,6 +12,8 @@ namespace DDD4.Customer.Infrastructure.Repositories
     public class CustomerQueryRepository : ICustomerQueryRepository
     {
         // mongo db 
+
+        // Insert event into mongoDb
         async Task ICustomerQueryRepository.Add(Domain.Entities.Customer customer)
         {
 
