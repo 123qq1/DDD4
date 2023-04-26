@@ -10,6 +10,8 @@ namespace DDD4.Order.Domain.Framework
     {
         protected abstract IEnumerable<object?> GetEqualityComponents();
 
+        // item1 == item2
+
         protected static bool EqualOperator(BaseValueObject? left, BaseValueObject? right)
         {
             if(ReferenceEquals(left, objB: null) ^ ReferenceEquals(right, objB: null)) return false;

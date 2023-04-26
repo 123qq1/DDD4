@@ -9,7 +9,7 @@ using DDD4.Order.Application.Repositories;
 using DDD4.Order.Domain.Entities;
 using DDD4.Order.Application.CQRS.Queries;
 
-namespace DDD4.Order.Application.CQRS.Commands.CreateCustomer
+namespace DDD4.Order.Application.CQRS.Commands.CreateOrder
 {
     internal sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
     {

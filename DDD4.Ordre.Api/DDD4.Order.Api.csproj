@@ -10,4 +10,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DDD4.Ordre.Infrastructure\DDD4.Order.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

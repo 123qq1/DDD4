@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DDD4.Order.Application.CQRS.Commands.CreateCustomer; //ødelagt namespace (y)
+using DDD4.Order.Application.CQRS.Commands.CreateOrder; 
 
 namespace DDD4.Order.Application.CQRS.Commands
 {

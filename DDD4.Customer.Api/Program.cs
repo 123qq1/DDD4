@@ -1,4 +1,4 @@
-using DDD4.Customer.Api.MongoDbConfig;
+using DDD4.Customer.Infrastructure.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

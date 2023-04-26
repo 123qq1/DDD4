@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DDD4.Customer.Application\DDD4.Customer.Application.csproj" />
-    <ProjectReference Include="..\DDD4.Customer.Infrastructure\DDD4.Customer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

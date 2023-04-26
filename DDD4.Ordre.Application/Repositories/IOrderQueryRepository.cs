@@ -9,5 +9,6 @@ namespace DDD4.Order.Application.Repositories
     public interface IOrderQueryRepository
     {
         public Task Add(Domain.Entities.Order order);
+        public Task<Domain.Entities.Order> Read(Guid orderId);
     }
 }

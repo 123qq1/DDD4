@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDD4.Order.Application.CQRS.Commands.CreateCustomer
+namespace DDD4.Order.Application.CQRS.Commands.CreateOrder
 {
     public class CreateOrderCommand : IRequest
     {
