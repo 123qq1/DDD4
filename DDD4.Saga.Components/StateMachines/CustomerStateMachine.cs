@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DDD4.Contracts;
 using MassTransit;
+using MassTransit.Middleware;
 
 namespace DDD4.Saga.Components.StateMachines
 {
@@ -48,6 +49,11 @@ namespace DDD4.Saga.Components.StateMachines
         {
             sagaConfigurator.UseMessageRetry(r => r.Immediate(5));
             sagaConfigurator.UseInMemoryOutbox();
+
+            var partition = endpointConfigurator.CreatePartitioner(8);
+
+            sagaConfigurator.Message<CustomerRecived>(x => x.UsePartitioner(partition, m => m.Message.CustomerId));
+
         }
     }
 }

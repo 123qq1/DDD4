@@ -1,21 +1,25 @@
 version: '3.4'
 
 services:
+
   ddd4.app:
     image: ${DOCKER_REGISTRY-}ddd4app
     build:
       context: .
       dockerfile: DDD4.App/Dockerfile
+
   ddd4.customer.api:
     image: ${DOCKER_REGISTRY-}ddd4customerapi
     build:
       context: .
       dockerfile: DDD4.Customer.Api/Dockerfile
+
   ddd4.saga.api:
     image: ${DOCKER_REGISTRY-}ddd4sagaapi
     build:
       context: .
       dockerfile: DDD4.Saga.Api/Dockerfile
+
   ddd4.discord.api:
     image: ${DOCKER_REGISTRY-}ddd4discordapi
     stdin_open: true
@@ -24,6 +28,23 @@ services:
     build:
       context: .
       dockerfile: DDD4.Discord.Api/Dockerfile
+
+  ddd4.saga.db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    user: root
+    ports:
+     - "11433:1433"
+    environment:
+        MSSQL_SA_PASSWORD: "ddd4.saga.db"
+        ACCEPT_EULA: "Y" 
+
+    volumes:
+      - C:\DockerVolumes\sagaSqlserver\data:/var/opt/mssql/data
+      - C:\DockerVolumes\sagaSqlserver\log:/var/opt/mssql/log
+      - C:\DockerVolumes\sagaSqlserver\secrets:/var/opt/mssql/secrets 
+
+    container_name: sagasql2019
+
   rabbitmq:
     container_name: DDD4.RabbitMQ
     hostname: rabbit

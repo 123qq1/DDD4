@@ -33,9 +33,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDD4.Saga.Api", "DDD4.Saga.Api\DDD4.Saga.Api.csproj", "{65EA134E-0D66-4BDE-8D48-1E87E3213594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD4.Saga.Components", "DDD4.Saga.Components\DDD4.Saga.Components.csproj", "{3B9EBAE1-E2B9-4521-9D84-32AD6491F4EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDD4.Saga.Components", "DDD4.Saga.Components\DDD4.Saga.Components.csproj", "{3B9EBAE1-E2B9-4521-9D84-32AD6491F4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD4.Contracts", "DDD4.Contracts\DDD4.Contracts.csproj", "{03B0A73C-9192-43B4-82DE-952E641B614A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDD4.Contracts", "DDD4.Contracts\DDD4.Contracts.csproj", "{03B0A73C-9192-43B4-82DE-952E641B614A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD4.Saga.DbContext", "DDD4.Saga.DbContext\DDD4.Saga.DbContext.csproj", "{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{03B0A73C-9192-43B4-82DE-952E641B614A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B0A73C-9192-43B4-82DE-952E641B614A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B0A73C-9192-43B4-82DE-952E641B614A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{E1C2E91D-B759-47FF-BF6B-41286EC7CB7C} = {B8D4C6D3-AAC1-4C24-B4D6-C89DBEBB87F6}
 		{65EA134E-0D66-4BDE-8D48-1E87E3213594} = {1D36B9B6-BC6A-4638-A8F6-5825E36AD943}
 		{3B9EBAE1-E2B9-4521-9D84-32AD6491F4EF} = {1D36B9B6-BC6A-4638-A8F6-5825E36AD943}
+		{8A1CFF01-B10F-4F8C-B89D-C2F94199F0A7} = {1D36B9B6-BC6A-4638-A8F6-5825E36AD943}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D92B273D-43ED-4BA1-9687-0E403B495795}
