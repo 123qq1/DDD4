@@ -9,12 +9,15 @@ using MassTransit.Middleware;
 
 namespace DDD4.Saga.Components.StateMachines
 {
-    public class CustomerStateMachine : MassTransitStateMachine<CustomerState>
+    public class CustomerStateMachine : 
+        MassTransitStateMachine<CustomerState>
     {
         public CustomerStateMachine()
         {
 
             InstanceState(x => x.CurrentState);
+
+            Event(() => CustomerRecived, x => x.CorrelateById(c => c.Message.CustomerId));
 
             Initially(  
                     When(CustomerRecived)

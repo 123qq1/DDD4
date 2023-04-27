@@ -17,15 +17,15 @@ builder.Services.AddMassTransit(cfg =>
         r.UseSqlServer();
     });
 
-    cfg.AddSagaStateMachine<CustomerStateMachine, CustomerState>();
-    cfg.AddSagaStateMachine<CustomerStateMachine, CustomerState>();
+    cfg.AddSagaStateMachinesFromNamespaceContaining<StateMachineAnchor>();
+    cfg.AddSagasFromNamespaceContaining<StateMachineAnchor>();
 
     cfg.AddDelayedMessageScheduler();
     cfg.UsingRabbitMq((x, y) =>
     {
         y.UseDelayedMessageScheduler();
 
-        y.Host("localhost","/", h =>
+        y.Host("rabbitmq", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
@@ -41,7 +41,5 @@ builder.Services.AddDbContext<EntityFrameworkDbContext>(
     );
 
 var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
 
 app.Run();
