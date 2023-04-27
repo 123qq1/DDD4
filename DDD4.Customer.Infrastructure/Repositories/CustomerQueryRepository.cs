@@ -1,4 +1,4 @@
-﻿using DDD4.Customer.Application.Repositories;
+using DDD4.Customer.Application.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +47,21 @@ namespace DDD4.Customer.Infrastructure.Repositories
         { 
             var cursor = await mongoCollection.FindAsync(x => x.Id == customerId);
             return cursor.Single();
+            
+            /*
+            var db = mongoClient.GetDatabase("CustomersDocuments");
+            var collection = db.GetCollection<BsonDocument>();
+            
+            var documentCustomer = new BsonDocument
+            {
+                { "Id", customer.Id },
+                { "Name", customer.Name },
+                { "DiscordName", customer.DiscordName },
+                { "AccountName", customer.AccountName },
+            };
+
+            await collection.InsertOneAsync(documentCustomer);
+            */
         }
     }
 }
