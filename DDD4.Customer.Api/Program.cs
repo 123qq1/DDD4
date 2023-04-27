@@ -7,8 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<CustomersMongoDbSettings>(
     builder.Configuration.GetSection("CustomerDocuments"));
 
-var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddDelayedMessageScheduler();
