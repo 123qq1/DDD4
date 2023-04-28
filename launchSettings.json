@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "ddd4.app",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "ddd4.app": "StartDebugging",
+        "ddd4.customer.api": "StartDebugging",
+        "ddd4.discord.api": "StartWithoutDebugging",
+        "ddd4.saga.api": "StartDebugging",
+        "ddd4.saga.db": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging"
+      }
+    }
+  }
+}

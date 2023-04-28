@@ -19,6 +19,9 @@ services:
     build:
       context: .
       dockerfile: DDD4.Saga.Api/Dockerfile
+    ports:
+     - "80:80"
+     - "443:443"
 
   ddd4.discord.api:
     image: ${DOCKER_REGISTRY-}ddd4discordapi

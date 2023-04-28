@@ -8,5 +8,9 @@ namespace DDD4.Contracts
 {
     public interface LinkCustomer
     {
+        public Guid CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string DiscordName { get; set; }
+        public string AccountName { get; set; }
     }
 }
