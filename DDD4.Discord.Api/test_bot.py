@@ -1,6 +1,7 @@
 import os
 
 import discord
+from discord.ext import commands
 import json
 from tabulate import tabulate
 
@@ -90,6 +91,10 @@ def run_discord_bot():
             current_standing[user_name] = change
         else:
             current_standing[user_name] += change
+
+    async def dm(user_id, message):
+        user = client.get_user(user_id)
+        await user.send(message)
 
     client.run(TOKEN)
 

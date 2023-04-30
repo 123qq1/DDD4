@@ -16,12 +16,15 @@ services:
 
   ddd4.saga.api:
     image: ${DOCKER_REGISTRY-}ddd4sagaapi
-    build:
+    build:  
       context: .
       dockerfile: DDD4.Saga.Api/Dockerfile
     ports:
      - "80:80"
      - "443:443"
+    depends_on: 
+     - ddd4.saga.db
+     - rabbitmq 
 
   ddd4.discord.api:
     image: ${DOCKER_REGISTRY-}ddd4discordapi
@@ -31,6 +34,8 @@ services:
     build:
       context: .
       dockerfile: DDD4.Discord.Api/Dockerfile
+    depends_on: 
+     - rabbitmq 
 
   ddd4.saga.db:
     image: "mcr.microsoft.com/mssql/server:2019-latest"

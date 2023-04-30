@@ -24,7 +24,10 @@ namespace DDD4.Saga.Components.StateMachines
                         .PublishAsync(context => context.Init<LinkCustomer>(
                             new
                             {
-
+                                context.Message.CustomerId,
+                                context.Message.CustomerName,
+                                context.Message.DiscordName,
+                                context.Message.AccountName
                             }
                             ))
                         .TransitionTo(Linking)
