@@ -1,8 +1,10 @@
 using DDD4.Contracts;
+using DDD4.Saga.Components.Consumers;
 using DDD4.Saga.Components.StateMachines;
 using DDD4.Saga.DbContext;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using LinkCustomer = DDD4.Saga.Components.Consumers.LinkCustomer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddMassTransit(cfg =>
 
     cfg.AddSagaStateMachinesFromNamespaceContaining<StateMachineAnchor>();
     cfg.AddSagasFromNamespaceContaining<StateMachineAnchor>();
+
+    cfg.AddConsumersFromNamespaceContaining<LinkCustomer>();
 
     cfg.AddDelayedMessageScheduler();
     cfg.UsingRabbitMq((x, y) =>
