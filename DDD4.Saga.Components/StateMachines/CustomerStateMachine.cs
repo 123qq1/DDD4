@@ -18,6 +18,8 @@ namespace DDD4.Saga.Components.StateMachines
             InstanceState(x => x.CurrentState);
 
             Event(() => CustomerRecived, x => x.CorrelateById(c => c.Message.CustomerId));
+            Event(() => CustomerLinked, x => x.CorrelateById(c => c.Message.CustomerId));
+
 
             Initially(  
                     When(CustomerRecived)
@@ -33,6 +35,20 @@ namespace DDD4.Saga.Components.StateMachines
                         .TransitionTo(Linking)
             );
 
+            During(Linking,
+                When(CustomerLinked)
+                    .PublishAsync(context => context.Init<CreateCustomer>(
+                        new
+                        {
+                            context.Message.CustomerId,
+                            context.Message.CustomerName,
+                            context.Message.DiscordName,
+                            context.Message.AccountName
+                        })
+                    )
+                    .TransitionTo(Creation)
+            );
+
         }
 
         public State Recived { get; set; }
@@ -41,6 +57,7 @@ namespace DDD4.Saga.Components.StateMachines
         public State Finished { get; set; }
 
         public Event<CustomerRecived> CustomerRecived { get; set; }
+        public Event<CustomerLinked> CustomerLinked { get; set; }
     }
 
     public class CustomerStateMachineDefinition :

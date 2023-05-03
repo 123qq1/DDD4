@@ -110,7 +110,7 @@ class rabbit:
         user = next(filter(lambda u: u.name == "123qq1" and u.discriminator == "4884", self.client.users))
         print(user.id,user.name)
 
-        asyncio.run_coroutine_threadsafe(user.send("Spooky discord bot"),self.loop)
+        #asyncio.run_coroutine_threadsafe(user.send("Spooky discord bot"),self.loop)
 
         self.channel.add_on_cancel_callback(self.on_consumer_cancelled)
         self.consumer_tag = self.channel.basic_consume(queue="LinkCustomer",
@@ -118,6 +118,8 @@ class rabbit:
 
 
     def reciveMessage(self, ch, method, properties, body):
+
+        print("message")
 
         body_js = json.loads(body)
 
@@ -128,8 +130,18 @@ class rabbit:
         d_name = message['discordName']
         a_name = message['accountName']
 
-        (user,discrim) = d_name.split("#")
-        print(user,discrim)
+        #(user,discrim) = d_name.split("#")
+        self.PublishMessage(body_js)
+
+    def PublishMessage(self, body_js):
+
+        body_js['destinationAddress'] = 'rabbitmq://rabbitmq/DDD4.Contracts:CustomerLinked'
+        body_js['sourceAddress'] = 'rabbitmq://rabbitmq/LinkCustomer'
+        body_js['messageType'] = ['urn:message:DDD4.Contracts:CustomerLinked']
+
+        print(body_js)
+
+        self.channel.basic_publish('DDD4.Contracts:CustomerLinked','',body=json.dumps(body_js,ensure_ascii=False));
 
 
     def CheckService(self):
