@@ -29,7 +29,7 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddSagaStateMachinesFromNamespaceContaining<StateMachineAnchor>();
     cfg.AddSagasFromNamespaceContaining<StateMachineAnchor>();
 
-    cfg.AddConsumersFromNamespaceContaining<LinkCustomer>();
+    //cfg.AddConsumersFromNamespaceContaining<LinkCustomer>();
 
     cfg.AddDelayedMessageScheduler();
     cfg.UsingRabbitMq((x, y) =>

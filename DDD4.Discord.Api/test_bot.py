@@ -4,6 +4,9 @@ import discord
 from discord.ext import commands
 import json
 from tabulate import tabulate
+import test_queue
+import threading
+import asyncio
 
 class bot:
 
@@ -39,9 +42,9 @@ class bot:
         except Exception as e:
             print(e)
 
-    def run_discord_bot(self):
+    async def run_discord_bot(self):
 
-        s = open('app/secret.json')
+        s = open('secret.json')
         data = json.load(s)
         TOKEN = data['bot_token']
 
@@ -52,6 +55,7 @@ class bot:
         intents = discord.Intents.default()
         intents.message_content = True
         intents.reactions = True
+        intents.members = True
 
         client = discord.Client(intents = intents)
 
@@ -93,5 +97,15 @@ class bot:
             else:
                 self.current_standing[user_name] += change
 
+        print("Bot Starting")
+        loop = asyncio.get_event_loop()
+        rb = test_queue.rabbit(client,loop)
+        print('connecting')
+        rb.CheckService()
+        print("connected")
 
-        return (client, TOKEN)
+        thread = threading.Thread(target=rb.run)
+        thread.start()
+
+        await client.start(TOKEN)
+

@@ -7,15 +7,9 @@ async def start(c,t):
 
 if __name__ == '__main__':
     db = test_bot.bot()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(db.run_discord_bot())
 
-    (client, token) = db.run_discord_bot()
-    print("test")
-    rb = test_queue.rabbit(client)
-    rb.CheckService()
-    print("connected")
-    rb.run()
-    #client.run(token)
-    #asyncio.create_task(start(client,token))
 
 
 

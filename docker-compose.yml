@@ -26,17 +26,17 @@ services:
      - ddd4.saga.db
      - rabbitmq 
 
-  ddd4.discord.api:
-    image: ${DOCKER_REGISTRY-}ddd4discordapi
-    stdin_open: true
-    tty: true
-    container_name: DDD4.Discord.Api
-    build:
-      context: .
-      dockerfile: DDD4.Discord.Api/Dockerfile
-    depends_on: 
-     - rabbitmq 
-     - ddd4.saga.api 
+  #ddd4.discord.api:
+  #  image: ${DOCKER_REGISTRY-}ddd4discordapi
+  #  stdin_open: true
+  #  tty: true
+  #  container_name: DDD4.Discord.Api
+  #  build:
+  #    context: .
+  #    dockerfile: DDD4.Discord.Api/Dockerfile
+  #  depends_on: 
+  #   - rabbitmq 
+  #   - ddd4.saga.api 
 
   ddd4.saga.db:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
