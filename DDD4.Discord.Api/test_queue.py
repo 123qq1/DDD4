@@ -7,7 +7,8 @@ from pika.exchange_type import ExchangeType
 
 class rabbit:
 
-    def __init__(self, client,loop):
+    def __init__(self, client,loop, script):
+        self.script = script
         self.client = client
         self.credentials = pika.PlainCredentials('guest','guest')
         self.props = {'connection_name': 'DDD4.Discord.Api'}
@@ -17,6 +18,7 @@ class rabbit:
                                                     client_properties=self.props)
 
         self.connection = pika.SelectConnection(self.parameters,self.on_connected)
+        self.currentKeys = {}
 
     def on_connected(self, connection):
         """
@@ -107,11 +109,6 @@ class rabbit:
         print("consuming")
         time.sleep(5)
 
-        user = next(filter(lambda u: u.name == "123qq1" and u.discriminator == "4884", self.client.users))
-        print(user.id,user.name)
-
-        #asyncio.run_coroutine_threadsafe(user.send("Spooky discord bot"),self.loop)
-
         self.channel.add_on_cancel_callback(self.on_consumer_cancelled)
         self.consumer_tag = self.channel.basic_consume(queue="LinkCustomer",
                                                        auto_ack=True, on_message_callback=self.reciveMessage)
@@ -129,9 +126,19 @@ class rabbit:
         name = message['customerName']
         d_name = message['discordName']
         a_name = message['accountName']
+        key = message['linkingKey']
+        self.currentKeys[d_name] = (body_js,key)
 
-        #(user,discrim) = d_name.split("#")
-        self.PublishMessage(body_js)
+        print(message)
+
+        try:
+            (user,discrim) = d_name.split("#")
+
+            d_user = next(filter(lambda u: u.name == user and u.discriminator == discrim, self.client.users))
+            print(d_user.id,d_user.name)
+            self.MessageToDiscord("Please respond with correct linking key.",d_user)
+        except:
+            print("Discord name not valid.")
 
     def PublishMessage(self, body_js):
 
@@ -143,6 +150,21 @@ class rabbit:
 
         self.channel.basic_publish('DDD4.Contracts:CustomerLinked','',body=json.dumps(body_js,ensure_ascii=False));
 
+    def MessageToDiscord(self,message,user):
+        asyncio.run_coroutine_threadsafe(user.send(message),self.loop)
+
+    def ConfirmLink(self, key,user):
+
+        print("Confirming Link")
+
+        try:
+            (body,true_key) = self.currentKeys[user.name +"#" +user.discriminator]
+            print("Key :",key,true_key)
+            if key == true_key:
+                self.PublishMessage(body)
+                self.MessageToDiscord("Link Confirmed",user)
+        except:
+            self.MessageToDiscord("Wrong key",user)
 
     def CheckService(self):
         pingcounter = 0

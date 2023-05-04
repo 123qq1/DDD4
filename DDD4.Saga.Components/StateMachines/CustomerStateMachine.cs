@@ -29,7 +29,8 @@ namespace DDD4.Saga.Components.StateMachines
                                 context.Message.CustomerId,
                                 context.Message.CustomerName,
                                 context.Message.DiscordName,
-                                context.Message.AccountName
+                                context.Message.AccountName,
+                                context.Message.LinkingKey
                             }
                             ))
                         .TransitionTo(Linking)

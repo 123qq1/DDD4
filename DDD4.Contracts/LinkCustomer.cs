@@ -12,5 +12,6 @@ namespace DDD4.Contracts
         public string CustomerName { get; set; }
         public string DiscordName { get; set; }
         public string AccountName { get; set; }
+        public string LinkingKey { get; set; }
     }
 }

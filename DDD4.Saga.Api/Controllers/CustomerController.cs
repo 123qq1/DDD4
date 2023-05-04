@@ -32,6 +32,7 @@ namespace DDD4.Saga.Api.Controllers
                 CustomerName = customerDto.CustomerName,
                 DiscordName = customerDto.DiscordName,
                 AccountName = customerDto.AccountName,
+                LinkingKey = customerDto.LinkingKey,
             };
 
             _publishEndpoint.Publish<CustomerRecived>(customerRecivedEvent);

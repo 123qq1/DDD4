@@ -41,6 +41,8 @@ class bot:
 
         except Exception as e:
             print(e)
+    def set_rabbit(self,rabbit):
+        self.rabbit = rabbit
 
     async def run_discord_bot(self):
 
@@ -74,6 +76,11 @@ class bot:
             user_message = raw_message[1:]
             channel = str(message.channel)
 
+            if isinstance(message.channel,discord.DMChannel):
+                print("DM from ",message.author)
+                print(type(self.rabbit))
+                self.rabbit.ConfirmLink(raw_message,message.author)
+
             if message_type == '?':
                 await self.send_message(message, user_message, is_private=True)
             elif message_type == '!':
@@ -97,9 +104,13 @@ class bot:
             else:
                 self.current_standing[user_name] += change
 
+
         print("Bot Starting")
         loop = asyncio.get_event_loop()
-        rb = test_queue.rabbit(client,loop)
+        rb = test_queue.rabbit(client,loop,self)
+
+        self.set_rabbit(rb)
+
         print('connecting')
         rb.CheckService()
         print("connected")
