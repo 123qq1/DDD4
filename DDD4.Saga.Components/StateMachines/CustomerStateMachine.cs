@@ -51,7 +51,6 @@ namespace DDD4.Saga.Components.StateMachines
 
         }
 
-        public State Recived { get; set; }
         public State Linking { get; set; }
         public State Creation { get; set; }
         public State Finished { get; set; }
