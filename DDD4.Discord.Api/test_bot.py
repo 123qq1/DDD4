@@ -46,7 +46,7 @@ class bot:
 
     async def run_discord_bot(self):
 
-        s = open('secret.json')
+        s = open('app/secret.json')
         data = json.load(s)
         TOKEN = data['bot_token']
 
@@ -80,9 +80,6 @@ class bot:
                 print("DM from ",message.author)
                 print(type(self.rabbit))
                 self.rabbit.ConfirmLink(raw_message,message.author)
-
-            if message_type == '?':
-                await self.send_message(message, user_message, is_private=True)
             elif message_type == '!':
                 await self.send_message(message,user_message, is_private=False)
 

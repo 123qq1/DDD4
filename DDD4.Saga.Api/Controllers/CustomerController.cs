@@ -8,7 +8,7 @@ using System.Net.Mime;
 
 namespace DDD4.Saga.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Customer")]
     [ApiController]
     public class CustomerController : ControllerBase
     {

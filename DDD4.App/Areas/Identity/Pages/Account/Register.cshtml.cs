@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using DDD4.App.Infrastructure.Saga.Contract;
+using DDD4.App.Infrastructure.Saga.Contract.Dto;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,13 +31,14 @@ namespace DDD4.App.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ISagaService _sagaService;  
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, ISagaService sagaService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +46,7 @@ namespace DDD4.App.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _sagaService = sagaService;
         }
 
         /// <summary>
@@ -78,6 +82,16 @@ namespace DDD4.App.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Name")]
+            public string CustomerName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Discord Name")]
+            public string DiscordName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -122,7 +136,26 @@ namespace DDD4.App.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    var chars = "1234567890";
+                    var random = new Random();
+
+                    string key = new string(Enumerable.Repeat(chars, 5).Select(s => s[random.Next(s.Length)]).ToArray());
+
+
+
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    Guid id = Guid.Parse(userId);
+
+                    await _sagaService.CreateCustomer(new CreateCustomerDto
+                    {
+                        CustomerId = id,
+                        AccountName = Input.Email,
+                        DiscordName = Input.DiscordName,
+                        CustomerName = Input.CustomerName,
+                        LinkingKey = key,
+                    });
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -141,7 +174,7 @@ namespace DDD4.App.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return Redirect("/LinkingKey?key="+key);
                     }
                 }
                 foreach (var error in result.Errors)

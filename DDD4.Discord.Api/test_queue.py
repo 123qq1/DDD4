@@ -13,7 +13,7 @@ class rabbit:
         self.credentials = pika.PlainCredentials('guest','guest')
         self.props = {'connection_name': 'DDD4.Discord.Api'}
         self.loop = loop
-        self.parameters = pika.ConnectionParameters('localhost',virtual_host='/',
+        self.parameters = pika.ConnectionParameters('rabbit',virtual_host='/',
                                                     credentials=self.credentials, heartbeat=50,
                                                     client_properties=self.props)
 
@@ -172,7 +172,7 @@ class rabbit:
         while isreachable is False and pingcounter < 5:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
-                s.connect(('localhost', 5672))
+                s.connect(('rabbit', 5672))
                 isreachable = True
             except socket.error as e:
                 time.sleep(30)

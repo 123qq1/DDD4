@@ -1,4 +1,6 @@
 using DDD4.App.Data;
+using DDD4.App.Infrastructure.Saga.Contract;
+using DDD4.App.Infrastructure.Saga.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = false;
     options.SignIn.RequireConfirmedAccount = false;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddHttpClient<ISagaService, SagaService>(client => 
+    client.BaseAddress = new Uri(builder.Configuration["SagaUrl"])
+);
 
 
 builder.Services.AddRazorPages();

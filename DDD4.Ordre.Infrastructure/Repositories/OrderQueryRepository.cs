@@ -28,7 +28,7 @@ namespace DDD4.Order.Infrastructure.Repositories
         }
         async Task<Domain.Entities.Order> IOrderQueryRepository.Read(Guid orderId)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
