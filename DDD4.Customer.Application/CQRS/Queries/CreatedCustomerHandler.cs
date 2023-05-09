@@ -13,14 +13,14 @@ namespace DDD4.Customer.Application.CQRS.Queries
     {
         private readonly ICustomerQueryRepository _queryRepository;
 
-        CreatedCustomerHandler(ICustomerQueryRepository queryRepository)
+        public CreatedCustomerHandler(/*ICustomerQueryRepository queryRepository*/)
         {
-            _queryRepository = queryRepository;
+            //_queryRepository = queryRepository;
         }
 
         public async Task Handle(CustomerCreated request, CancellationToken cancellationToken)
         {
-            await _queryRepository.Add(request.entity);
+            //await _queryRepository.Add(request.entity);
         }
     }
 }

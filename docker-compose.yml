@@ -52,7 +52,7 @@ services:
       - C:\DockerVolumes\sagaSqlserver\log:/var/opt/mssql/log
       - C:\DockerVolumes\sagaSqlserver\secrets:/var/opt/mssql/secrets 
 
-    container_name: sagasql2019
+    container_name: DDD4.Saga.DB
 
   ddd4.app.db:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
@@ -68,7 +68,22 @@ services:
       - C:\DockerVolumes\appSqlserver\log:/var/opt/mssql/log
       - C:\DockerVolumes\appSqlserver\secrets:/var/opt/mssql/secrets 
 
-    container_name: appsql2019
+    container_name: DDD4.App.DB
+
+  ddd4.customer.es:
+    image: eventstore/eventstore:latest
+    container_name: DDD4.Customer.ES
+    environment:
+      - EVENTSTORE_INSECURE=true # let eventstore run without ceritficate
+      - EVENTSTORE_EXT_TCP_PORT=11130 # set internal tcp port
+      - EVENTSTORE_HTTP_PORT=21130 # set internal admin ui port
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    ports:
+      - "11130:11130" # map internal tcp port
+      - "21130:21130" # map internal admin ui port
+    volumes:
+      - C:\DockerVolumes\customerESserver\lib:/var/lib/eventstore
+      - C:\DockerVolumes\customerESserver\log:/var/log/eventstore
 
   rabbitmq:
     container_name: DDD4.RabbitMQ
