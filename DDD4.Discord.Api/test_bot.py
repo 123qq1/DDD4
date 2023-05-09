@@ -7,6 +7,7 @@ from tabulate import tabulate
 import test_queue
 import threading
 import asyncio
+from vaderSentiment import vaderSentiment
 
 class bot:
 
@@ -44,6 +45,26 @@ class bot:
     def set_rabbit(self,rabbit):
         self.rabbit = rabbit
 
+    async def buy_role(self, role, cost, user):
+        #buy role
+        if self.current_standing[user] >= cost:
+            #give role to user
+            (username,discrim) = user.split("#")
+
+            guild = discord.utils.get(self.client.guilds,name="New and improved studiegruppe")
+            print(type(guild))
+
+            member = discord.utils.get(guild.members, name=username and discriminator=disrim)
+            d_role = discord.utils.get(guild.roles, name=role)
+            print(type(member))
+            print(type(d_role))
+            
+            await member.add_roles(d_role)
+        else:
+            raise ValueError('Not enough coins')
+ 
+        
+
     async def run_discord_bot(self):
 
         s = open('app/secret.json')
@@ -60,6 +81,8 @@ class bot:
         intents.members = True
 
         client = discord.Client(intents = intents)
+
+        self.client = client
 
         @client.event
         async def on_ready():
@@ -82,6 +105,16 @@ class bot:
                 self.rabbit.ConfirmLink(raw_message,message.author)
             elif message_type == '!':
                 await self.send_message(message,user_message, is_private=False)
+
+            else:
+                analyzer = vaderSentiment.SentimentIntensityAnalyzer()
+                scores = analyzer.polarity_scores(raw_message)
+                coin = scores['compound']
+                if username not in self.current_standing.keys():
+                    self.current_standing[username] = coin 
+                else:
+                    self.current_standing[username] += coin
+
 
         @client.event
         async def on_reaction_add(reaction,user):
