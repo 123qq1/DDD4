@@ -1,10 +1,17 @@
+using DDD4.Contracts;
+using DDD4.Saga.Components.Consumers;
 using DDD4.Saga.Components.StateMachines;
 using DDD4.Saga.DbContext;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using LinkCustomer = DDD4.Saga.Components.Consumers.LinkCustomer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(cfg =>
 {
@@ -17,8 +24,12 @@ builder.Services.AddMassTransit(cfg =>
         r.UseSqlServer();
     });
 
+    cfg.AddRequestClient<CustomerRecived>();
+
     cfg.AddSagaStateMachinesFromNamespaceContaining<StateMachineAnchor>();
     cfg.AddSagasFromNamespaceContaining<StateMachineAnchor>();
+
+    //cfg.AddConsumersFromNamespaceContaining<LinkCustomer>();
 
     cfg.AddDelayedMessageScheduler();
     cfg.UsingRabbitMq((x, y) =>
@@ -41,5 +52,18 @@ builder.Services.AddDbContext<EntityFrameworkDbContext>(
     );
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "MVCCallWebAPI");
+    options.RoutePrefix = string.Empty;
+});
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 app.Run();

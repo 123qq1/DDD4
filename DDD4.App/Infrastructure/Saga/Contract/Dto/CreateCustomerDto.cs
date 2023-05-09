@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DDD4.Contracts
+﻿namespace DDD4.App.Infrastructure.Saga.Contract.Dto
 {
-    public interface CustomerRecived
+    public class CreateCustomerDto
     {
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
