@@ -54,7 +54,7 @@ class bot:
             guild = discord.utils.get(self.client.guilds,name="New and improved studiegruppe")
             print(type(guild))
 
-            member = discord.utils.get(guild.members, name=username and discriminator=disrim)
+            member = next(filter(lambda m: m.name==username and m.discriminator == discrim,guild.members))
             d_role = discord.utils.get(guild.roles, name=role)
             print(type(member))
             print(type(d_role))
