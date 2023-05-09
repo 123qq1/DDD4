@@ -37,7 +37,6 @@ namespace DDD4.Order.Domain.Entities
                 AccountName = accountName,
                 DiscordName = discordName,
                 RoleValue = roleValue
-
             });
         }
 
