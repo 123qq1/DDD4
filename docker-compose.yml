@@ -92,3 +92,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  
+  ddd4.customer.mongo:
+    image: mongodb/mongodb-community-server:latest
+    container_name: DDD4.Customer.MDB
