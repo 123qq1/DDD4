@@ -46,7 +46,7 @@ builder.Services.AddMassTransit(cfg =>
     });
 
 });
-var connectionString = builder.Configuration.GetConnectionString("sagaDb");
+var connectionString = builder.Configuration.GetConnectionString("sagaDb"); //sagaDb
 builder.Services.AddDbContext<EntityFrameworkDbContext>(
     x => x.UseSqlServer(connectionString, b => b.MigrationsAssembly("DDD4.Saga.DbContext"))
     );
