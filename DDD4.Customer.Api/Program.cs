@@ -4,11 +4,13 @@ using DDD4.Customer.Application.Repositories;
 using DDD4.Customer.Infrastructure.Config;
 using DDD4.Customer.Infrastructure.Consumers;
 using DDD4.Customer.Infrastructure.Repositories;
+using DDD4.Customer.Application.CQRS.Queries;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerQueryRepository, CustomerQueryRepository>();
 
 builder.Services.AddEventStoreClient(
     new Uri(
@@ -24,6 +26,8 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly);
     cfg.RegisterServicesFromAssemblyContaining<CreateCustomerCommand>();
     cfg.RegisterServicesFromAssemblyContaining<CreateCustomerConsumer>();
+    cfg.RegisterServicesFromAssemblyContaining<CreatedCustomerHandler>();
+    cfg.RegisterServicesFromAssemblyContaining<ReadCustomersHandler>();
 });
 
 builder.Services.AddMassTransit(cfg =>
