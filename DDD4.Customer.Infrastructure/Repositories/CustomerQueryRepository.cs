@@ -29,17 +29,6 @@ namespace DDD4.Customer.Infrastructure.Repositories
         // Insert event into mongoDb
         async Task ICustomerQueryRepository.Add(Domain.Entities.Customer customer)
         {
-
-            //MongoClient mongoClient = new MongoClient("connstring");
-
-            //var documentCustomer = new BsonDocument
-            //{
-            //    { "Id", customer.Id },
-            //    { "Name", customer.Name },
-            //    { "DiscordName", customer.DiscordName },
-            //    { "AccountName", customer.AccountName },
-            //};
-
             await mongoCollection.InsertOneAsync(customer);
         }
 
@@ -47,21 +36,6 @@ namespace DDD4.Customer.Infrastructure.Repositories
         { 
             var cursor = await mongoCollection.FindAsync(x => x.Id == customerId);
             return cursor.Single();
-            
-            /*
-            var db = mongoClient.GetDatabase("CustomersDocuments");
-            var collection = db.GetCollection<BsonDocument>();
-            
-            var documentCustomer = new BsonDocument
-            {
-                { "Id", customer.Id },
-                { "Name", customer.Name },
-                { "DiscordName", customer.DiscordName },
-                { "AccountName", customer.AccountName },
-            };
-
-            await collection.InsertOneAsync(documentCustomer);
-            */
         }
     }
 }
